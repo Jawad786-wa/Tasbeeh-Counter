@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tasbeeh Counter Pro</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1b5e20 0%, #4caf50 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        h1{
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        img[src*="flaticon"]:first-of-type {
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        #count{
+            font-size: 80px;
+            margin: 30px;
+            color: white;
+            font-weight: bold;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            background: rgba(255, 255, 255, 0.15);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        div[style*="margin-bottom: 20px"] {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        label {
+            color: white;
+            font-weight: bold;
+        }
+
+        button{
+            padding: 15px 30px;
+            font-size: 18px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        button:active {
+            transform: translateY(-1px);
+        }
+
+        .countBtn{
+            background: linear-gradient(135deg, #fff5e1 0%, #ffe0b2 100%);
+            color: #1b5e20;
+        }
+
+        .countBtn:hover {
+            background: linear-gradient(135deg, #ffe0b2 0%, #ffcc80 100%);
+        }
+
+        .resetBtn{
+            background: linear-gradient(135deg, #ef5350 0%, #e53935 100%);
+            color: white;
+        }
+
+        .resetBtn:hover {
+            background: linear-gradient(135deg, #e53935 0%, #c62828 100%);
+        }
+
+        select{
+            padding: 12px 15px;
+            font-size: 16px;
+            margin: 10px 0;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        select:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        select option {
+            background: #1b5e20;
+            color: white;
+        }
+
+        #message{
+            margin-top: 20px;
+            font-size: 24px;
+            color: white;
+            font-weight: bold;
+            animation: slideIn 0.5s ease;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #completionImage{
+            width: 80px;
+            height: 80px;
+            margin-top: 15px;
+            display: none;
+            animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+        }
+
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) rotate(-30deg);
+            }
+            70% {
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            #count {
+                font-size: 60px;
+                padding: 30px;
+                margin: 20px;
+            }
+
+            button {
+                padding: 12px 20px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Tasbeeh Counter 📿</h1>
+
+    <!-- Logo Image -->
+    <img src="https://cdn-icons-png.flaticon.com/512/2316/2316642.png" alt="Tasbeeh" style="width: 100px; height: 100px; margin-bottom: 20px;">
+
+    <!-- Goal Selection -->
+    <div style="margin-bottom: 20px;">
+        <label for="goalSelect" style="font-size: 18px; font-weight: bold;">Select Your Goal:</label>
+        <br>
+        <select id="goalSelect">
+            <option value="33">Goal: 33</option>
+            <option value="99">Goal: 99</option>
+        </select>
+    </div>
+
+    <!-- Counter -->
+    <div id="count">0</div>
+
+    <!-- Buttons -->
+    <button class="countBtn" onclick="increment()">Count</button>
+
+    <button class="resetBtn" onclick="resetCounter()">Reset</button>
+
+    <!-- Goal Message -->
+    <div id="message"></div>
+
+    <!-- Completion Image -->
+    <img id="completionImage" src="https://cdn-icons-png.flaticon.com/512/992/992718.png" alt="Completed">
+
+    <!-- Sound -->
+    <audio id="clickSound" src="click.mp3"></audio>
+
+    <script>
+
+        let count = 0;
+
+        function increment(){
+
+            count++;
+
+            document.getElementById("count").innerText = count;
+
+            // Play Sound
+            let sound = document.getElementById("clickSound");
+
+            sound.currentTime = 0;
+
+            sound.play();
+
+            // Mobile Vibration
+            if(navigator.vibrate){
+                navigator.vibrate(100);
+            }
+
+            // Goal Check
+            let goal = parseInt(document.getElementById("goalSelect").value, 10);
+
+            if(count === goal){
+
+                document.getElementById("message").innerText =
+                "✅ Tasbeeh Goal Completed!";
+
+                document.getElementById("completionImage").style.display = "block";
+                
+                // Strong vibration on completion
+                if(navigator.vibrate){
+                    navigator.vibrate([300, 100, 300]);
+                }
+
+            } else {
+
+                document.getElementById("message").innerText = "";
+                document.getElementById("completionImage").style.display = "none";
+            }
+        }
+
+        function resetCounter(){
+
+            count = 0;
+
+            document.getElementById("count").innerText = count;
+
+            document.getElementById("message").innerText = "";
+        }
+
+    </script>
+
+</body>
+</html>
